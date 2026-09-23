@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: chat-sse-gemini
+
+  ai:
+    google:
+      genai:
+        api-key: ${GOOGLE_API_KEY:}
+        chat:
+          options:
+            model: gemini-2.5-flash
+            temperature: 0.3
+
+    chat:
+      memory:
+        repository:
+          redis:
+            host: ${REDIS_HOST:localhost}
+            port: ${REDIS_PORT:6379}
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+app:
+  chat-memory:
+    max-messages: 20   # sliding window size per conversation
+  external-apis:
+    base-url: ${EXTERNAL_API_BASE_URL:http://localhost:8080/mock}  # point at real services in prod
+
+logging:
+  level:
+    org.springframework.ai: INFO
